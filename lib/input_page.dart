@@ -22,6 +22,7 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
 
   var selectedGender;
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -30,39 +31,36 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: (){
+                  child: ReusableCard(
+                    onPressed: (){
                       setState(() {
                         selectedGender = Gender.male;
                       });
                     },
-                    child: ReusableCard(
-                      colorName: selectedGender==Gender.male? activeCardColor : inactiveCardColor,
-                      cardChild: IconContent(
-                        iconContent: Icons.male,
-                        textContent: 'MALE',
-                      ),
+                    colorName: selectedGender==Gender.male? activeCardColor : inactiveCardColor,
+                    cardChild: IconContent(
+                      iconContent: Icons.male,
+                      textContent: 'MALE',
                     ),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: (){
+                  child: ReusableCard(
+                    onPressed: (){
                       setState(() {
                         selectedGender = Gender.female;
                       });
                     },
-                    child: ReusableCard(
-                      colorName: selectedGender==Gender.female? activeCardColor : inactiveCardColor,
-                      cardChild: IconContent(
-                        iconContent: Icons.female,
-                        textContent: 'FEMALE',
-                      ),
+                    colorName: selectedGender==Gender.female? activeCardColor : inactiveCardColor,
+                    cardChild: IconContent(
+                      iconContent: Icons.female,
+                      textContent: 'FEMALE',
                     ),
                   ),
                 ),
@@ -72,6 +70,51 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: ReusableCard(
               colorName: activeCardColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'HEIGHT',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Text(
+                        height.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 50,
+                        ),
+                      ),
+                      Text(
+                        'cm',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      )
+                    ],
+                  ),
+                  Slider(
+                      value: height.toDouble(),
+                      min: 120.0,
+                      max: 300.0,
+                      activeColor: Colors.white,
+                      inactiveColor: Colors.grey,
+                      onChanged: (double slidingVal){
+                        setState(() {
+                          height = slidingVal.toInt();
+                        });
+                      },
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
