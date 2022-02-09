@@ -1,13 +1,11 @@
+import 'dart:developer';
+
+import 'package:bmi_calculator/constant.dart';
 import 'package:bmi_calculator/reusable_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'icon_content.dart';
-
-const double footerHeight = 80.0;
-const Color activeCardColor = Color(0xFF1D1E33);
-const Color inactiveCardColor = Color(0xFF111328);
-const Color footerColorCode = Color(0xFFeB1555);
 
 enum Gender{
   male,
@@ -23,6 +21,8 @@ class _InputPageState extends State<InputPage> {
 
   var selectedGender;
   int height = 180;
+  int weight = 60;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +75,7 @@ class _InputPageState extends State<InputPage> {
                 children: [
                   Text(
                     'HEIGHT',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
+                    style: labelTextStyle,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -87,31 +84,34 @@ class _InputPageState extends State<InputPage> {
                     children: [
                       Text(
                         height.toString(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 50,
-                        ),
+                        style: numberTextStyle,
                       ),
                       Text(
                         'cm',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
+                        style: labelTextStyle,
                       )
                     ],
                   ),
-                  Slider(
-                      value: height.toDouble(),
-                      min: 120.0,
-                      max: 300.0,
-                      activeColor: Colors.white,
-                      inactiveColor: Colors.grey,
-                      onChanged: (double slidingVal){
-                        setState(() {
-                          height = slidingVal.toInt();
-                        });
-                      },
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: Colors.white,
+                      inactiveTrackColor: Colors.grey,
+                      thumbShape: RoundSliderThumbShape(
+                        enabledThumbRadius: 15.0,
+                      ),
+                      thumbColor: footerColorCode,
+                      overlayColor: overlayFooterColorCode,
+                    ),
+                    child: Slider(
+                        value: height.toDouble(),
+                        min: 120.0,
+                        max: 300.0,
+                        onChanged: (double slidingVal){
+                          setState(() {
+                            height = slidingVal.toInt();
+                          });
+                        },
+                    ),
                   ),
                 ],
               ),
@@ -123,11 +123,85 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     colorName: activeCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'WEIGHT',
+                          style: labelTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: numberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomButton(
+                              passedIcon: Icons.remove,
+                              passedFunction: (){
+                                setState(() {
+                                  weight--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            CustomButton(
+                              passedIcon: Icons.add,
+                              passedFunction: (){
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colorName: Color(0xFF1D1E33),
+                    colorName: activeCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'AGE',
+                          style: labelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: numberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomButton(
+                              passedIcon: Icons.remove,
+                              passedFunction: (){
+                                setState(() {
+                                  age--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            CustomButton(
+                              passedIcon: Icons.add,
+                              passedFunction: (){
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -144,6 +218,5 @@ class _InputPageState extends State<InputPage> {
     );
   }
 }
-
 
 
