@@ -9,3 +9,4 @@ const Color footerColorCode = Color(0xFFeB1555);
 const Color overlayFooterColorCode = Color(0x29eB1555);
 const TextStyle labelTextStyle = TextStyle(color: Colors.grey, fontSize: 20);
 const TextStyle numberTextStyle = TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold);
+const TextStyle footerLabelTextStyle = TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold);
