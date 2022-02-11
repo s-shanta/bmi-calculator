@@ -1,11 +1,16 @@
 import 'package:bmi_calculator/constant.dart';
-import 'package:bmi_calculator/footer_button.dart';
-import 'package:bmi_calculator/reusable_card.dart';
+import 'package:bmi_calculator/components/footer_button.dart';
+import 'package:bmi_calculator/components/reusable_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Result_Page extends StatelessWidget {
-  const Result_Page({Key? key}) : super(key: key);
+
+  final String bmiNumber;
+  final String bmiResult;
+  final String interpretation;
+
+  Result_Page({required this.bmiNumber, required this.bmiResult, required this.interpretation});
 
   @override
   Widget build(BuildContext context) {
@@ -33,22 +38,23 @@ class Result_Page extends StatelessWidget {
                 colorName: activeCardColor,
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Center(
                       child: Text(
-                        'normal',
-                        style: labelTextStyle,
+                        bmiResult,
+                        style: bmiResultTextStyle,
                       ),
                     ),
                     Center(
                       child: Text(
-                        '20.7',
+                        bmiNumber,
                         style: numberTextStyle,
                       ),
                     ),
                     Center(
                       child: Text(
-                        'you are overweight...',
+                        interpretation,
                         style: labelTextStyle,
                       ),
                     ),
